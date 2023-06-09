@@ -32,4 +32,7 @@ jobs:
         commit_time=$(date +%Y-%m-%d-%H)
         git add client_list.json
         git commit -am "Users generated at: $commit_time" || exit 0  
-        git push
+        git push origin HEAD:main
+    env:
+      GIT_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
