@@ -24,15 +24,17 @@ jobs:
 
     - name: Run Python code
       run: python generate_client_list.py
-
-    - name: Commit and push if it changed
+    - name: Get current date
+      id: date
       run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Action"
-        commit_time=$(date +%Y-%m-%d-%H)
-        git add client_list.json
-        git commit -am "Users generated at: $commit_time" || exit 0  
-        git push origin HEAD:main
-    env:
-      GIT_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        echo "JOB_DATE=$(date +%Y-%m-%d-%H)" >> $GITHUB_ENV
+
+    - name: "Update commit"
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "Users generated at: ${{ env.JOB_DATE }}"
+        #commit_options: "--amend"
+        push_options: "--force"
+        skip_fetch: true
+
 
