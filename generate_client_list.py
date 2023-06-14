@@ -22,7 +22,7 @@ def generate_client_list(length):
             random_token = random.randint(0, len(currencies_list)-1)
             token_list = currencies_list[random_token]
             token_name = token_list[0]
-            account_tokens = generate_number(token_list[1], token_list[2])  # Generate a random number between 1e-9 and 1e9
+            account_tokens = generate_number(token_list[1], token_list[2], currency=token_name)  # Generate a random number between 1e-9 and 1e9
 
             accounts.append((token_name, account_tokens))
 
