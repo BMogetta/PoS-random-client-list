@@ -43,7 +43,7 @@ def run ():
         # Call the function with the argument
         client_list = generate_client_list(int(arg))
     else:
-        client_list = generate_client_list(10000)
+        client_list = generate_client_list(50000)
 
     with open("client_list.json", "w") as jsonfile:
         json.dump(client_list, jsonfile)
