@@ -17,14 +17,17 @@ def generate_client_list(length):
         num_tokens_accounts = random.randint(1, 10)  # Generate a random number between 1 and 10
 
         accounts = []
+        random_token_list = []
 
         for j in range(num_tokens_accounts):
             random_token = random.randint(0, len(currencies_list)-1)
-            token_list = currencies_list[random_token]
-            token_name = token_list[0]
-            account_tokens = generate_number(token_list[1], token_list[2], currency=token_name)  # Generate a random number between 1e-9 and 1e9
+            if random_token not in random_token_list:
+                token_list = currencies_list[random_token]
+                token_name = token_list[0]
+                account_tokens = generate_number(token_list[1], token_list[2], currency=token_name)  # Generate a random number between 1e-9 and 1e9
 
-            accounts.append((token_name, account_tokens))
+                accounts.append((token_name, account_tokens))
+            random_token_list.append(random_token)
 
         client_data = {
             client_id: accounts,
