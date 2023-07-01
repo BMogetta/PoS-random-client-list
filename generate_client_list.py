@@ -21,7 +21,8 @@ def generate_client_list(length):
     for i in range(length):
         _uuid = uuid.uuid4()
         client_id = str(_uuid)  # User IDs start from '1'
-        num_tokens_accounts = random.randint(1, 10)  # Generate a random number between 1 and 10
+        # Generate a random number between 1 and 10
+        num_tokens_accounts = random.randint(1, 10)
 
         accounts = []
         random_token_list = []
@@ -31,7 +32,10 @@ def generate_client_list(length):
             if random_token not in random_token_list:
                 token_list = currencies_list[random_token]
                 token_name = token_list[0]
-                account_tokens = generate_number(token_list[1], token_list[2], currency=token_name)  # Generate a random number between 1e-9 and 1e9
+
+                # Generate a random number between 1e-9 and 1e9
+                account_tokens = generate_number(
+                    token_list[1], token_list[2], currency=token_name)
 
                 accounts.append((token_name, account_tokens))
             random_token_list.append(random_token)
@@ -44,7 +48,8 @@ def generate_client_list(length):
 
     return client_list
 
-def run ():
+
+def run():
     # Check if an argument is provided
     if len(sys.argv) > 1:
         # Get the value from the command-line argument
@@ -54,10 +59,11 @@ def run ():
         client_list = generate_client_list(int(arg))
     else:
         client_list = generate_client_list(50000)
-
-    
+    file_path = os.path.join(base_dir, "client_list.json")
 
     with open(file_path, "w+") as jsonfile:
         json.dump(client_list, jsonfile)
     return client_list
+
+
 run()
