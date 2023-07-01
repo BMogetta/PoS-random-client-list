@@ -1,10 +1,17 @@
+import os
 import random
 import json
 import uuid
 import sys
 from num_random import generate_number
 
-with open("currencies_list.json") as jsonfile:
+# Get the absolute path to the directory that this script is located in
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the path to the file
+file_path = os.path.join(base_dir, "currencies_list.json")
+
+with open(file_path) as jsonfile:
     currencies_list = json.load(jsonfile)
 
 
@@ -48,7 +55,9 @@ def run ():
     else:
         client_list = generate_client_list(50000)
 
-    with open("client_list.json", "w") as jsonfile:
+    
+
+    with open(file_path, "w+") as jsonfile:
         json.dump(client_list, jsonfile)
     return client_list
 run()
